@@ -13,6 +13,9 @@ import { environment } from '../environments/environment.prod';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { ProductCategoryMenuComponent } from './component/product-category-menu/product-category-menu.component';
+import { ProductComponent } from './component/product/product.component';
+import { ProductDescriptionComponent } from './component/product-description/product-description.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +23,9 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
     LoginComponent,
     SignupComponent,
     HomeComponent,
+    ProductCategoryMenuComponent,
+    ProductComponent,
+    ProductDescriptionComponent
     
   ],
   imports: [

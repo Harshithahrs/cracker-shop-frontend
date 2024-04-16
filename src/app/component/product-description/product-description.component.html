@@ -1,0 +1,15 @@
+<p>product-description works!</p>
+<div *ngIf="product$ | async as product; else loading">
+    <h2>{{ product.title }}</h2>
+    <img [src]="product.postImgPath" alt="Product Image" />
+    <p>{{ product.content }}</p>
+    <p>Price: ${{ product.productPrice }}</p>
+    <p>Stock: {{ product.productStock }}</p>
+    <p>Category: {{ product.category }}</p>
+    <!-- <p>Created At: {{ product.createdAt | date }}</p> -->
+  </div>
+  
+  <ng-template #loading>
+    <p>Loading product details...</p>
+  </ng-template>
+  
