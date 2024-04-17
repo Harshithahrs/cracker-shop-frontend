@@ -22,7 +22,7 @@ export class ProductService {
     );
   }
   getProductsByCategory(categoryId: string): Observable<Product[]> {
-    return this.firestore.collection<Product>('products', ref => ref.where('categoryId', '==', categoryId)).snapshotChanges().pipe(
+    return this.firestore.collection<Product>('products', ref => ref.where('category.categoryId', '==', categoryId)).snapshotChanges().pipe(
       map(actions => {
         return actions.map(action => {
           const data = action.payload.doc.data() as Product;
@@ -32,7 +32,9 @@ export class ProductService {
       })
     );
   }
+  
   getProductById(productId: string): Observable<Product | undefined> {
+    console.log(productId);
     return this.firestore.collection('products').doc<Product>(productId).get().pipe(
       map(snapshot => {
         const data = snapshot.data() as Product;

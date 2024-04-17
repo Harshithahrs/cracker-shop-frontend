@@ -1,0 +1,27 @@
+.product-detail {
+    margin-top: 150px;
+    /* margin: 20px; */
+  }
+  
+  .product-info {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .product-image {
+    width: 40%;
+  }
+  
+  .product-image img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .product-details {
+    width: 55%;
+  }
+  
+  .product-details p {
+    margin-bottom: 10px;
+  }
+  

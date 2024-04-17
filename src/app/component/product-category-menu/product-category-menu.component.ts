@@ -26,5 +26,14 @@ export class ProductCategoryMenuComponent implements OnInit {
       }
     )
    }
+   isCollapsed: boolean = true;
+
+   toggleSidebar() {
+     this.isCollapsed = !this.isCollapsed;
+     const sidebar = document.querySelector('.menu-sidebar-content');
+     if (sidebar) {
+       sidebar.classList.toggle('open', !this.isCollapsed);
+     }
+   }
 
 }

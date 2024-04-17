@@ -16,6 +16,9 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { ProductCategoryMenuComponent } from './component/product-category-menu/product-category-menu.component';
 import { ProductComponent } from './component/product/product.component';
 import { ProductDescriptionComponent } from './component/product-description/product-description.component';
+import { SingleCategoryComponent } from './component/single-category/single-category.component';
+import { CartDetailsComponent } from './component/cart-details/cart-details.component';
+import { CartStatusComponent } from './component/cart-status/cart-status.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,10 @@ import { ProductDescriptionComponent } from './component/product-description/pro
     HomeComponent,
     ProductCategoryMenuComponent,
     ProductComponent,
-    ProductDescriptionComponent
+    ProductDescriptionComponent,
+    SingleCategoryComponent,
+    CartDetailsComponent,
+    CartStatusComponent
     
   ],
   imports: [

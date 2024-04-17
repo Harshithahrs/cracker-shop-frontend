@@ -3,6 +3,8 @@ import { ProductService } from '../../service/product.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, switchMap } from 'rxjs';
 import { Product } from '../../model/Prdouct';
+import { CartItem } from '../../model/CartItem';
+import { CartService } from '../../service/cart.service';
 
 @Component({
   selector: 'app-product-description',
@@ -14,13 +16,17 @@ export class ProductDescriptionComponent {
 
   constructor(
     private productService: ProductService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cartService:CartService
+
   ) { }
 
   ngOnInit(): void {
     this.product$ = this.route.paramMap.pipe(
       switchMap(params => {
-        const productId = params.get('id');
+        console.log(params)
+        const productId = params.get('categoryId');
+        console.log(productId)
         if (productId) {
           return this.productService.getProductById(productId);
         } else {
@@ -30,5 +36,14 @@ export class ProductDescriptionComponent {
         }
       })
     );
+  }
+  getProductAvailability(product: Product): string {
+    return product.productStock > 0 ? 'In Stock' : 'Out of Stock';
+  }
+  addToCart(theProduct:Product){
+    console.log(`Adding to cart: ${theProduct.title},${theProduct.productPrice}`);
+    //do add in cart
+    const theCartItem=new CartItem(theProduct);
+    this.cartService.addToCart(theCartItem);
   }
 }
