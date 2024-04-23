@@ -1,0 +1,36 @@
+/* Custom styles for sidebar menu */
+
+.menu-sidebar-content {
+    height: calc(100vh - 60px); /* Adjust height for scrollbar and top header */
+    overflow-y: auto; /* Enable vertical scrolling */
+  }
+  
+  .navbar-sidebar {
+    background-color: #fff;
+    border-right: 1px solid #ddd;
+    padding-top: 20px;
+  }
+  
+  .navbar-list {
+    padding-left: 0;
+  }
+  
+  .nav-item {
+    margin-bottom: 10px;
+  }
+  
+  .nav-link {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-link:hover {
+    color: #007bff; /* Change link color on hover */
+  }
+  
+  .active-link {
+    font-weight: bold; /* Highlight active link */
+    color: #007bff;
+  }
+  

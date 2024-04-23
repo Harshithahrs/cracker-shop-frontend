@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, DocumentChangeAction, DocumentSnapshot } from '@angular/fire/compat/firestore';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { Product } from '../model/Prdouct';
-import { Observable, of } from 'rxjs';
+import { Observable, forkJoin, from, of } from 'rxjs';
+import { CartItem } from '../model/CartItem';
 
 @Injectable({
   providedIn: 'root'
@@ -74,6 +75,45 @@ export class ProductService {
       catchError(error => {
         console.error(`Error fetching product with ID ${productId}:`, error);
         return of(undefined);
+      })
+    );
+  }
+  updateProductStock(cartItems: CartItem[]): Observable<void> {
+    const batch = this.firestore.firestore.batch();
+    const updateOperations: Observable<any>[] = [];
+
+    cartItems.forEach(cartItem => {
+      const productId = cartItem.productId;
+      const quantityToReduce = cartItem.quantity;
+
+      const productDocRef = this.firestore.collection('products').doc(productId).ref;
+
+      // Fetch product data and calculate updated stock
+      const updateOperation = this.getProductById(productId).pipe(
+        switchMap(product => {
+          if (!product) {
+            throw new Error(`Product with ID ${productId} not found.`);
+          }
+
+          const updatedStock = Math.max(0, product.productStock - quantityToReduce);
+
+          // Update stock in the Firestore batch
+          batch.update(productDocRef, { productStock: updatedStock });
+          return of(null); // Return a completed observable
+        })
+      );
+      updateOperations.push(updateOperation);
+    });
+
+    // Execute all update operations and commit the batch
+    return forkJoin(updateOperations).pipe(
+      switchMap(() => {
+        // Commit the batch update
+        return from(batch.commit());
+      }),
+      catchError(error => {
+        console.error(`Error updating product stock:`, error);
+        throw error; // Rethrow the error to be handled by the caller
       })
     );
   }

@@ -19,6 +19,12 @@ import { ProductDescriptionComponent } from './component/product-description/pro
 import { SingleCategoryComponent } from './component/single-category/single-category.component';
 import { CartDetailsComponent } from './component/cart-details/cart-details.component';
 import { CartStatusComponent } from './component/cart-status/cart-status.component';
+import { DropDownMenuComponent } from './drop-down-menu/drop-down-menu.component';
+import { CartService } from './service/cartServiceFirebase.service';
+import { CommonModule } from '@angular/common';
+import { CheckoutComponent } from './component/checkout/checkout.component';
+import { OrderSuccessComponent } from './component/order-success/order-success.component';
+import { OrderHistoryComponent } from './component/order-history/order-history.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +37,11 @@ import { CartStatusComponent } from './component/cart-status/cart-status.compone
     ProductDescriptionComponent,
     SingleCategoryComponent,
     CartDetailsComponent,
-    CartStatusComponent
+    CartStatusComponent,
+    DropDownMenuComponent,
+    CheckoutComponent,
+    OrderSuccessComponent,
+    OrderHistoryComponent,
     
   ],
   imports: [
@@ -44,8 +54,9 @@ import { CartStatusComponent } from './component/cart-status/cart-status.compone
     HttpClientModule,
     FormsModule,
     AngularFireStorageModule,
+    CommonModule
   ],
-  providers: [],
+  providers: [CartService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

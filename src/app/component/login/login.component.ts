@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserLogin } from '../../model/UserAdmin';
 import { AuthService } from '../../service/auth.service';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-login',
@@ -10,8 +11,9 @@ import { AuthService } from '../../service/auth.service';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
+  isUserLoggedIn!: Observable<boolean>;
   constructor(private fb:FormBuilder,private auth:AuthService){
-    
+    this.isUserLoggedIn = this.auth.isLoggedIn();
   }
   
   ngOnInit() {

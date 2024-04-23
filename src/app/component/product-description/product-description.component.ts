@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, switchMap } from 'rxjs';
 import { Product } from '../../model/Prdouct';
 import { CartItem } from '../../model/CartItem';
-import { CartService } from '../../service/cart.service';
+import { CartService } from '../../service/cartServiceFirebase.service';
 
 @Component({
   selector: 'app-product-description',

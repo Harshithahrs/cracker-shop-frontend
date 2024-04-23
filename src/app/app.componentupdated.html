@@ -1,0 +1,26 @@
+<div id="container" [ngClass]="{sidebarActive:sidebarActive}">
+
+    <div id="sidebar">
+        <app-product-category-menu></app-product-category-menu>
+    </div>
+    <div id="contentContainer">
+        <div id="header">
+
+            <div id="logo"><img [src]="sidebarActive ? '../assets/cross-icon.svg':'../assets/menu-icon.svg'"
+                    (click)="sidebarActive =! sidebarActive" />
+                Cracker-frontend</div>
+                <div id="menu">
+                    <!-- Right-aligned menu items -->
+                    <div id="rightMenu">
+                      <a [routerLink]="['/login']">login</a>
+                    <div id="a">
+                      <app-cart-status></app-cart-status>
+                      </div>
+                    </div>
+                  </div>
+        </div>
+        <div id="mar">
+        <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

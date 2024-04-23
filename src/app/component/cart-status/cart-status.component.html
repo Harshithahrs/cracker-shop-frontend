@@ -1,8 +1,9 @@
-<div class="cart-area d-n">
-    <a routerLink="/cart-details">
-        <div class="total">{{totalPrice | currency: 'USD'}}
-          <span>{{totalQuantity}}</span>
-        </div>
-        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-    </a>
+<div class="cart-area">
+  <a routerLink="/cart-details">
+    <div class="total">
+      Total Price: {{ totalPrice | currency:'USD':'symbol':'1.2-2' }}
+      <span>Quantity: {{ totalQuantity }}</span>
+    </div>
+    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+  </a>
 </div>

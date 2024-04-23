@@ -1,6 +1,7 @@
 <div class="main-content">
     <div class="section-content section-content-p30">
         <div class="container-fluid">
+             <!-- <app-cart-status [totalPrice]="totalPrice" [totalQuantity]="totalQuantity"></app-cart-status> -->
             <div *ngIf="cartItems.length>0">
 
                 <table class="table table-bordered">
@@ -23,7 +24,7 @@
                                 <label>Quantity:</label>
                                 <div class="row no-gutters">
                                     <div class="col">
-                                        <button (click)="incrementQuantity(tempCartItem)" class="btn btn-primary btn-sm">
+                                        <button (click)="incrementQuantity(tempCartItem.productId)" class="btn btn-primary btn-sm">
                                             <i class="fas fa-plus"></i>
                                         </button>
 
@@ -32,7 +33,7 @@
                                         {{tempCartItem.quantity}}
                                     </div>
                                     <div class="col">
-                                        <button (click)="decrementQuantity(tempCartItem)" class="btn btn-primary btn-sm">
+                                        <button (click)="decrementQuantity(tempCartItem.productId)" class="btn btn-primary btn-sm">
                                             <i class="fas fa-minus"></i>
                                         </button>
 
@@ -41,7 +42,7 @@
                               
                                 </div>
                             </div>
-                            <button (click)="remove(tempCartItem)" class="btn btn-primary btn-sm mt-2"><h6>Remove</h6></button>
+                            <button (click)="removeAllCartItem()" class="btn btn-primary btn-sm mt-2"><h6>Remove</h6></button>
                             <p class="mt-2">Subtotal:{{tempCartItem.quantity * tempCartItem.unitPrice | currency:'USD'}}
                             </p>
                         </td>

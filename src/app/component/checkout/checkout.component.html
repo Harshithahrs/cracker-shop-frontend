@@ -1,0 +1,84 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4">Checkout Form</h2>
+          <form [formGroup]="checkoutFormGroup" (ngSubmit)="onSubmit()" novalidate>
+            <!-- Customer Information -->
+            <div formGroupName="customer">
+              <div class="mb-3">
+                <label for="firstName" class="form-label">First Name</label>
+                <input formControlName="firstName" type="text" class="form-control" id="firstName"
+                       placeholder="Enter first name">
+                <div *ngIf="firstName?.invalid && (firstName?.dirty || firstName?.touched)"
+                     class="text-danger">
+                  First Name is required and must be at least 2 characters long
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="lastName" class="form-label">Last Name</label>
+                <input formControlName="lastName" type="text" class="form-control" id="lastName"
+                       placeholder="Enter last name">
+                <div *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)"
+                     class="text-danger">
+                  Last Name is required and must be at least 2 characters long
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email Address</label>
+                <input formControlName="email" type="email" class="form-control" id="email"
+                       placeholder="Enter email address">
+                <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="text-danger">
+                  Email is required and must be a valid email address
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="phone" class="form-label">Phone Number</label>
+                <input formControlName="phone" type="tel" class="form-control" id="phone"
+                       placeholder="Enter phone number">
+                <div *ngIf="phone?.invalid && (phone?.dirty || phone?.touched)" class="text-danger">
+                  Phone Number is required
+                </div>
+              </div>
+            </div>
+
+            <!-- Shipping Address -->
+            <div formGroupName="shippingAddress" class="mt-4">
+              <h3>Shipping Address</h3>
+              <div class="mb-3">
+                <label for="street" class="form-label">Street Address</label>
+                <input formControlName="street" type="text" class="form-control" id="street"
+                       placeholder="Enter street address">
+                <div *ngIf="street?.invalid && (street?.dirty || street?.touched)"
+                     class="text-danger">
+                  Street Address is required
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="city" class="form-label">City</label>
+                <input formControlName="city" type="text" class="form-control" id="city"
+                       placeholder="Enter city">
+              </div>
+              <div class="mb-3">
+                <label for="state" class="form-label">State</label>
+                <input formControlName="state" type="text" class="form-control" id="state"
+                       placeholder="Enter state">
+              </div>
+              <div class="mb-3">
+                <label for="zipCode" class="form-label">ZIP Code</label>
+                <input formControlName="zipCode" type="text" class="form-control" id="zipCode"
+                       placeholder="Enter ZIP code">
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="text-center mt-4">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
