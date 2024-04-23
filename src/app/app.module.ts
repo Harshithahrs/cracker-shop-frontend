@@ -13,6 +13,18 @@ import { environment } from '../environments/environment.prod';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { ProductCategoryMenuComponent } from './component/product-category-menu/product-category-menu.component';
+import { ProductComponent } from './component/product/product.component';
+import { ProductDescriptionComponent } from './component/product-description/product-description.component';
+import { SingleCategoryComponent } from './component/single-category/single-category.component';
+import { CartDetailsComponent } from './component/cart-details/cart-details.component';
+import { CartStatusComponent } from './component/cart-status/cart-status.component';
+import { DropDownMenuComponent } from './drop-down-menu/drop-down-menu.component';
+import { CartService } from './service/cartServiceFirebase.service';
+import { CommonModule } from '@angular/common';
+import { CheckoutComponent } from './component/checkout/checkout.component';
+import { OrderSuccessComponent } from './component/order-success/order-success.component';
+import { OrderHistoryComponent } from './component/order-history/order-history.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +32,16 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
     LoginComponent,
     SignupComponent,
     HomeComponent,
+    ProductCategoryMenuComponent,
+    ProductComponent,
+    ProductDescriptionComponent,
+    SingleCategoryComponent,
+    CartDetailsComponent,
+    CartStatusComponent,
+    DropDownMenuComponent,
+    CheckoutComponent,
+    OrderSuccessComponent,
+    OrderHistoryComponent,
     
   ],
   imports: [
@@ -32,8 +54,9 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
     HttpClientModule,
     FormsModule,
     AngularFireStorageModule,
+    CommonModule
   ],
-  providers: [],
+  providers: [CartService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

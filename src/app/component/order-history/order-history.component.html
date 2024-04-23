@@ -1,0 +1,11 @@
+<p>order-history works!</p>
+<ul>
+    <li *ngFor="let product of orderHistory$ | async">
+        
+      <!-- Display product information here -->
+      <p><strong>Product Name:</strong> {{  product.createdAt
+      }}</p>
+      <p><strong>Price:</strong> {{  product.totalPrice  }}</p>
+      <!-- Add more product details as needed -->
+    </li>
+  </ul>

@@ -1,0 +1,30 @@
+<div *ngIf="products$ | async as products; else loading">
+  <h2>Category-Specific Products</h2>
+
+  <div class="row">
+    <!-- Loop through products and display as cards -->
+    <div class="col-md-4 mb-4" *ngFor="let product of products">
+      <div class="card h-100">
+        <!-- Product image -->
+        <img class="card-img-top" [src]="product.postImgPath" alt="Product Image">
+
+        <div class="card-body">
+          <!-- Product title -->
+          <h5 class="card-title">{{ product.title }}</h5>
+          <!-- Product price -->
+          <p class="card-text">Price: ${{ product.productPrice }}</p>
+
+          <!-- Product description -->
+          <p class="card-text">{{ product.excerpt }}</p>
+
+          <!-- View product details button -->
+          <a [routerLink]="['/products', product.id]" class="btn btn-primary stretched-link">View Details</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <p>Loading category-specific products...</p>
+</ng-template>

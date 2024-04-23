@@ -1,0 +1,35 @@
+ <div class="menu-sidebar-content js-scrollbar1">
+      <nav class="navbar-sidebar">
+        <ul class="list-unstyled navbar-list">
+       <!--   <li>
+            <a routerLink="/category/1" routerLinkActive="active-link">Books</a>
+          </li>
+          <li>
+            <a routerLink="/category/2" routerLinkActive="active-link">Coffee Mugs</a>
+          </li>
+          <li>
+            <a routerLink="/category/3" routerLinkActive ="active-link">Mouse Pads</a>
+          </li>
+          <li>
+            <a routerLink="/category/4" routerLinkActive ="active-link">Luggage Tags</a>
+          </li>-->
+          <ul class="navbar-nav me-auto" *ngFor="let cat of categoryArrays">
+            <li class="nav-item ml-2">
+              <h6>
+                <a class="nav-link" [routerLink]="['/category', cat.data.category, cat.id]" (click)="isCollapsed = !isCollapsed">
+                  {{ cat.data.category }}
+                </a>
+              </h6>
+            </li>
+          </ul>
+          <li *ngFor="let category of categoryArrays" class="nav-item ml-2">
+            <h6>
+              <a class="nav-link" [routerLink]="['/category', category.id]" routerLinkActive="active-link">
+                {{ category.category }}
+              </a>
+            </h6>
+            </li>
+        </ul>
+      </nav>
+    </div>
+   
