@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CheckoutService } from '../../service/checkout.service';
 import { CheckoutData } from '../../model/CheckoutData';
 import { Router } from '@angular/router';
+import { CartDataService } from '../../service/cartdata.service';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-checkout',
@@ -12,11 +14,23 @@ import { Router } from '@angular/router';
 export class CheckoutComponent implements OnInit {
   checkoutFormGroup!: FormGroup;
   savedCheckoutData: CheckoutData | any = null;
-  constructor(private formBuilder: FormBuilder, private checkoutService: CheckoutService,
-    private router:Router
+  constructor(private formBuilder: FormBuilder, private checkoutService: CheckoutService,private cardDataService:CartDataService
+   , private router:Router
   ) { }
 
+  totalPrice: number = 0;
+  totalQuantity: number = 0;
+  private cartDataSubscription!: Subscription;
+ 
+
   ngOnInit(): void {
+
+    this.cartDataSubscription = this.cardDataService.totalPrice$.subscribe(price=>{
+      this.totalPrice=price;
+    }); // Retrieve totalPrice from shared service
+    this.cartDataSubscription = this.cardDataService.totalQuantity$.subscribe(quantiy=>{
+      this.totalQuantity=quantiy
+    });
     this.checkoutFormGroup = this.formBuilder.group({
       customer: this.formBuilder.group({
         firstName: ['', [Validators.required, Validators.minLength(2)]],
@@ -47,12 +61,23 @@ export class CheckoutComponent implements OnInit {
      const formData=this.checkoutFormGroup.value as CheckoutData
      localStorage.setItem('checkoutData', JSON.stringify(formData));
 
-    this.checkoutService.placeOrder(formData);
-    this.router.navigate(['/order-success']);
+    this.checkoutService.saveInformation(formData);
+    this.router.navigate(['cart-details'])
     console.log('Form submitted successfully!');
     console.log(formData);
   }
-
+  hasExistingInformation(): boolean {
+    return this.savedCheckoutData !== null;
+  }
+  editInformation(): void {
+    this.savedCheckoutData = null;
+    localStorage.removeItem('checkoutData');
+    this.checkoutFormGroup.reset();
+  }
+  confirm(){
+    this.checkoutService.placeOrder();
+    this.router.navigate(['/order-status']);
+  }
   // Getter methods for form controls
   get firstName() { return this.checkoutFormGroup.get('customer.firstName'); }
   get lastName() { return this.checkoutFormGroup.get('customer.lastName'); }

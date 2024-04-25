@@ -74,9 +74,31 @@
 
             <!-- Submit Button -->
             <div class="text-center mt-4">
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button *ngIf="!hasExistingInformation()" type="submit" class="btn btn-primary">Submit</button>
+              <button *ngIf="hasExistingInformation()" (click)=" editInformation()" type="button" class="btn btn-primary">Edit</button>
             </div>
           </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container mt-5" *ngIf="hasExistingInformation()">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4">Order Confirmation</h2>
+          <!-- Display Total Price and Total Quantity -->
+          <div class="mt-4">
+            <h3>Total</h3>
+            <p>Total Quantity: {{ totalQuantity }}</p>
+            <p>Total Price: {{ totalPrice }}</p>
+          </div>
+          <!-- Confirm Order Button -->
+          <div class="text-center mt-4">
+            <button (click)="confirm()" class="btn btn-success">Confirm Order</button>
+          </div>
         </div>
       </div>
     </div>

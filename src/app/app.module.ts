@@ -25,6 +25,7 @@ import { CommonModule } from '@angular/common';
 import { CheckoutComponent } from './component/checkout/checkout.component';
 import { OrderSuccessComponent } from './component/order-success/order-success.component';
 import { OrderHistoryComponent } from './component/order-history/order-history.component';
+import { UserDashboardComponent } from './component/user-dashboard/user-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { OrderHistoryComponent } from './component/order-history/order-history.c
     CheckoutComponent,
     OrderSuccessComponent,
     OrderHistoryComponent,
+    UserDashboardComponent,
     
   ],
   imports: [

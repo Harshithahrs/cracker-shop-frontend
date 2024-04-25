@@ -13,7 +13,7 @@ export class AuthService {
   loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(private afAuth: AngularFireAuth, private router: Router) {
-    const storedUser = localStorage.getItem('user');
+    const storedUser = localStorage.getItem('currentUser');
     if (storedUser) {
       this.currentUser = JSON.parse(storedUser);
       this.loggedIn.next(true);
@@ -71,6 +71,17 @@ getUserCookies():string{
     const userData = JSON.parse(storedUser);
     console.log('my',userData.uid) 
     return userData.uid;
+     
+  }
+  return '';
+}
+getUserEmail():string{
+  const storedUser=localStorage.getItem('currentUser');
+    
+  if (storedUser) {
+    const userData = JSON.parse(storedUser);
+    console.log('my',userData.uid) 
+    return userData.email;
      
   }
   return '';

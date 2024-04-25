@@ -13,6 +13,7 @@ import { AuthGuard } from './service/authGuard.service';
 import { CartStatusComponent } from './component/cart-status/cart-status.component';
 import { OrderSuccessComponent } from './component/order-success/order-success.component';
 import { OrderHistoryComponent } from './component/order-history/order-history.component';
+import { UserDashboardComponent } from './component/user-dashboard/user-dashboard.component';
 
 const routes: Routes = [
   {path:'login',component:LoginComponent},
@@ -30,6 +31,7 @@ const routes: Routes = [
   {path:'cart-status',component:CartStatusComponent,canActivate:[AuthGuard]},
   {path:'order-status',component:OrderSuccessComponent,canActivate:[AuthGuard]},
   {path:'order-history',component:OrderHistoryComponent,canActivate:[AuthGuard]},
+  {path:'userDashboard',component:UserDashboardComponent,canActivate:[AuthGuard]},
 
 
 ];

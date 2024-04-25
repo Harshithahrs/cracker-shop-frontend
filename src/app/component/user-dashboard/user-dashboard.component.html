@@ -1,0 +1,103 @@
+<p>user-dashboard works!</p>
+<div class="container">
+    <div class="row">
+      <div class="col text-center">
+        <h2 class="mb-4">Welcome to Your Dashboard</h2>
+        <div class="dashboard-links" *ngIf="isLoggedIn$ | async; else guestUserTemplate">
+         
+        </div>
+       <ng-template #guestUserTemplate>
+          <marquee behavior="scroll" direction="left">
+            <h4 class="text-danger mb-0">You are a guest user! Please
+              <button class="btn btn-primary btn-sm" (click)="redirectToLogin()">Login</button>
+              to access the services.</h4>
+          </marquee>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-header">
+            <h5><span style="color: black;">Navigation</span></h5>
+              <div class="row cursor-pointer"> 
+          <!-- <div class="col-1">
+            <a href="{{ instagramLink }}" target="_blank"><i class="fab fa-instagram"></i></a>
+          </div>
+          <div class="col-1">
+            <a href="{{ githubLink }}" target="_blank"><i class="fab fa-github"></i></a>
+          </div>
+          <div class="col-1">
+            <a href="{{ linkedinLink }}" target="_blank"><i class="fab fa-linkedin"></i></a>
+          </div> -->
+        </div> 
+          </div>
+          <div class="card-body">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link active" [routerLink]="['/userDashboard']">
+                  <button class="btn btn-primary btn-sm small-button">
+                    <span style="color: black;">Dashboard</span>
+                  </button></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/order-status']">
+                  <button class="btn btn-primary btn-sm small-button">
+                    <span>OrderStatus</span>
+                  </button></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/checkout']">
+                  <button class="btn btn-primary btn-sm small-button">
+                    <span>UserInformation</span>
+                  </button></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/cart-details']">
+                  <button class="btn btn-primary btn-sm small-button">
+                    <span>Cart-Details</span>
+                  </button></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/order-history']">
+                  <button class="btn btn-primary btn-sm small-button">
+                    <span>OrderHistory</span>
+                  </button></a>
+              </li>
+              <div>
+  
+              </div>
+              <li class="nav-item">
+                <button class="btn btn-primary" (click)="onLogout()" *ngIf="isLoggedIn$ | async">Logout</button>
+              </li>
+            
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div class="card">
+          <div class="card" [ngStyle]="{'background-image': 'url(' + backgroundImageUrl + ')'}">
+  
+          <div class="card-header">
+            <h5><span style="color: black;"> Dashboard</span></h5>
+          </div>
+          <div class="card-body">
+  
+            <div class="jumbotron text-center">
+              <h1 class="display-4"><span style="color: black;">Welcom to your Dashboard !</span></h1>
+              <p class="lead"><span style="color: green;">Manage and access various services here.</span> </p>
+              <hr class="my-4">
+              <p *ngIf="isLoggedIn$ | async"><span style="color: royalblue;">Logged in as: {{ userEmail }}</span></p>
+              <p *ngIf="!(isLoggedIn$ | async)">You are a guest user! Please login to access the services.</p>
+              <button class="btn btn-primary" (click)="redirectToLogin()" *ngIf="!(isLoggedIn$ | async)">Login</button>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>

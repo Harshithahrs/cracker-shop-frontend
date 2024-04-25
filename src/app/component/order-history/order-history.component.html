@@ -1,11 +1,34 @@
 <p>order-history works!</p>
+
 <ul>
-    <li *ngFor="let product of orderHistory$ | async">
-        
-      <!-- Display product information here -->
-      <p><strong>Product Name:</strong> {{  product.createdAt
-      }}</p>
-      <p><strong>Price:</strong> {{  product.totalPrice  }}</p>
-      <!-- Add more product details as needed -->
-    </li>
-  </ul>
+  <li *ngFor="let order of orderHistory$ | async">
+    <!-- Display order creation date -->
+    <p><strong>Order Placed On:</strong> {{ order.createdAt.toDate() | date: 'medium' }}</p>
+    
+    <!-- Display each cart item within the order -->
+    <div *ngFor="let item of order.cartItems">
+      <div class="card mb-3">
+        <div class="card-body">
+          <!-- Product Name -->
+          <h5 class="card-title">{{ item.name }}</h5>
+          
+          <!-- Product Image (if available) -->
+          <img *ngIf="item.imageUrl" [src]="item.imageUrl" class="img-fluid mb-2" alt="Product Image">
+          
+          <!-- Product Quantity and Unit Price -->
+          <p><strong>Quantity:</strong> {{ item.quantity }}</p>
+          <p><strong>Unit Price:</strong> {{ item.unitPrice | currency: 'USD' }}</p>
+          
+          <!-- Total Price for this item (Quantity * Unit Price) -->
+          <p><strong>Total Price:</strong> {{ item.quantity * item.unitPrice | currency: 'USD' }}</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Display total price and total quantity for the order -->
+    <!-- <p><strong>Total Quantity:</strong> {{ order.totalQuantity }}</p>
+    <p><strong>Total Price:</strong> {{ order.totalPrice | currency: 'USD' }}</p>
+     -->
+    <!-- Add more order details as needed -->
+  </li>
+</ul>

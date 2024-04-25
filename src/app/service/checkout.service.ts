@@ -3,9 +3,7 @@ import { AuthService } from './auth.service';
 import { CartDataService } from './cartdata.service';
 import { CartService } from './cartServiceFirebase.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { FormGroup } from '@angular/forms';
 import { Observable, catchError, from, map, of, switchMap, take } from 'rxjs';
-import { CartItem } from '../model/CartItem';
 import { ProductService } from './product.service';
 import { CheckoutData } from '../model/CheckoutData';
 import { Router } from '@angular/router';
@@ -24,19 +22,29 @@ export class CheckoutService {
          this.userId = this.authService.getUserCookies();
 
        }
- 
- public placeOrder(checkoutData: CheckoutData): void {
+ saveInformation(checkoutData:CheckoutData){
+  if (!this.userId) {
+    console.error('User ID not available.');
+    return;
+  }
+  //  const { customer, shippingAddress } = checkoutData;
+
+   return from(this.firestore.collection(`users/${this.userId}/address`).add(checkoutData));
+     
+ }
+ public placeOrder(): void {
   // if (!checkoutForm || !checkoutForm.value || !checkoutForm.value.customer || !checkoutForm.value.shippingAddress) {
   //   console.error('Invalid checkout form or form value.');
   //   return;
   // }
     if (!this.userId) {
       console.error('User ID not available.');
+      this.router.navigate(['/login']);
       return;
     }
-    const { customer, shippingAddress } = checkoutData;
-    console.log('sservice',checkoutData)
-    console.log(customer,shippingAddress)
+    // const { customer, shippingAddress } = checkoutData;
+    // console.log('sservice',checkoutData)
+    // console.log(customer,shippingAddress)
     this.cartService.fetchCartItemsWithMetadata().pipe(
       take(1),
       switchMap(cartData => {
@@ -49,8 +57,8 @@ export class CheckoutService {
         }
         const orderData = {
           userId:this.userId,
-          customerInfo: customer,
-          shippingAddress: shippingAddress,
+          // customerInfo: customer,
+          // shippingAddress: shippingAddress,
           cartItems: cartData.cartItems,
           totalQuantity: cartData.totalQuantity,
           totalPrice: cartData.totalPrice,
