@@ -27,10 +27,14 @@ steps:
     publishLocation: 'Container'
   displayName: 'Publish Angular Build Artifacts'
 
-- task: AzureWebApp@1
+# - - task: AzureRmWebAppDeployment@4
   inputs:
-    azureSubscription: 'YourAzureServiceConnection'  # Azure service connection name
-    appName: 'cracker-sale-frontend'  # Name of your Azure Web App
-    package: '$(Pipeline.Workspace)/angular-dist'  # Path to the published Angular build
-    deploymentMethod: 'zipDeploy'
-  displayName: 'Deploy to Azure Web App'
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Azure for Students (6ebbb3bc-8b53-4226-bb05-d7851352144a)'
+    appType: 'webApp'
+    WebAppName: 'DEV-D'
+    deployToSlotOrASE: true
+    ResourceGroupName: 'cracker-admin-dashboard'
+    SlotName: 'production'
+    VirtualApplication: 'cracker-frontend'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
