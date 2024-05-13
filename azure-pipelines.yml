@@ -25,10 +25,7 @@ steps:
     pathtoPublish: '$(Build.SourcesDirectory)/dist'  # Path to Angular build output directory
     artifactName: 'angular-dist'
     publishLocation: 'Container'
-  displayName: 'Publish Angular Build Artifacts'
-
-# - - task: AzureRmWebAppDeployment@4
-  inputs:
+    displayName: 'Publish Angular Build Artifacts'
     ConnectionType: 'AzureRM'
     azureSubscription: 'Azure for Students (6ebbb3bc-8b53-4226-bb05-d7851352144a)'
     appType: 'webApp'
