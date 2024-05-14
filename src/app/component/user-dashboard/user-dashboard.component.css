@@ -1,58 +1,57 @@
 /* sidebar.component.css */
 
 .menu-sidebar-content {
-    height: 100%; /* Occupy full height */
-    overflow-y: auto; /* Enable vertical scrolling */
+  height: 100%; /* Occupy full height */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.navbar-sidebar {
+  background-color: #fff;
+  border-right: 1px solid #ddd;
+  padding-top: 20px;
+}
+
+.navbar-list {
+  padding-left: 0;
+}
+
+.nav-item {
+  margin-bottom: 10px;
+}
+
+.nav-link {
+  color: #333;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  display: block; /* Ensure links take full width */
+  padding: 8px 0; /* Add padding for better touch interaction */
+}
+
+.nav-link:hover {
+  color: #007bff; /* Change link color on hover */
+}
+
+.active-link {
+  font-weight: bold; /* Highlight active link */
+  color: #007bff;
+}
+
+@media (max-width: 768px) {
+  /* Adjust styles for smaller screens */
+  .menu-sidebar-content {
+    height: auto; /* Auto height on smaller screens */
+    overflow-y: visible; /* Disable vertical scrolling */
   }
-  
-  .navbar-sidebar {
-    background-color: #fff;
-    border-right: 1px solid #ddd;
-    padding-top: 20px;
-  }
-  
+
   .navbar-list {
-    padding-left: 0;
+    margin-top: 20px; /* Add space above list items */
   }
-  
+
   .nav-item {
-    margin-bottom: 10px;
+    margin-bottom: 8px; /* Reduce margin between items */
   }
-  
+
   .nav-link {
-    color: #333;
-    text-decoration: none;
-    transition: color 0.3s ease;
-    display: block; /* Ensure links take full width */
-    padding: 8px 0; /* Add padding for better touch interaction */
+    padding: 5px 0; /* Adjust padding for smaller touch targets */
   }
-  
-  .nav-link:hover {
-    color: #007bff; /* Change link color on hover */
-  }
-  
-  .active-link {
-    font-weight: bold; /* Highlight active link */
-    color: #007bff;
-  }
-  
-  @media (max-width: 768px) {
-    /* Adjust styles for smaller screens */
-    .menu-sidebar-content {
-      height: auto; /* Auto height on smaller screens */
-      overflow-y: visible; /* Disable vertical scrolling */
-    }
-  
-    .navbar-list {
-      margin-top: 20px; /* Add space above list items */
-    }
-  
-    .nav-item {
-      margin-bottom: 8px; /* Reduce margin between items */
-    }
-  
-    .nav-link {
-      padding: 5px 0; /* Adjust padding for smaller touch targets */
-    }
-  }
-  
+}

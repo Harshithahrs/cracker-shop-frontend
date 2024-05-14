@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { UserLogin } from '../model/UserAdmin';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class AuthService {
   isLoggedInGuard:boolean=false;
   loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  constructor(private afAuth: AngularFireAuth, private router: Router) {
+  constructor(private afAuth: AngularFireAuth, private router: Router,private toastr:ToastrService) {
     const storedUser = localStorage.getItem('currentUser');
     if (storedUser) {
       this.currentUser = JSON.parse(storedUser);
@@ -40,6 +41,8 @@ export class AuthService {
       const credential = await this.afAuth.signInWithEmailAndPassword(admin.email, admin.password);
       if (credential.user) {
         this.isLoggedInGuard = true;
+        this.toastr.success('yest')
+        console.log(this.toastr.success("hi"))
         this.router.navigate(['/home']);
 
       }
@@ -89,7 +92,7 @@ getUserEmail():string{
   async logout() {
     try {
       await this.afAuth.signOut();
-      localStorage.removeItem('user');
+      localStorage.removeItem('currentUser');
       this.loggedIn.next(false);
       this.isLoggedInGuard=false;
       this.router.navigate(['/login']);

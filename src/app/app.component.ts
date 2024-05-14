@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CartService } from './service/cartServiceFirebase.service';
 import { CartDataService } from './service/cartdata.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +10,15 @@ import { CartDataService } from './service/cartdata.service';
 })
 export class AppComponent {
   title = 'cracker-frontend-app1';
-  constructor(private cartService:CartService,private cartData:CartDataService){}
-  sidebarActive:boolean=true;
+  constructor(private toastr:ToastrService, private cartService:CartService,private cartData:CartDataService){}
+  sidebarActive:boolean=false;
   toggleSidebar() {
+    this.toastr.success('yest')
+    console.log(this.toastr.success("hi"))
     this.sidebarActive = !this.sidebarActive;
+    this.isSidebarOpen = !this.isSidebarOpen;
+
   }
+  isSidebarOpen = false;
+
 }

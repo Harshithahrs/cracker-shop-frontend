@@ -1,0 +1,29 @@
+.cart-area {
+    display: inline-block;
+    margin-right: 20px;
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .cart-link {
+    display: flex;
+    align-items: center;
+  }
+  
+  .cart-icon {
+    position: relative;
+  }
+  
+  .badge-image {
+    position: absolute;
+    top: -5px; /* Adjust the vertical position of the image within the badge */
+    left: -5px; /* Adjust the horizontal position of the image within the badge */
+    width: 24px; /* Adjust the width of the image */
+    height: 24px; /* Adjust the height of the image */
+  }
+  
+  .cart-text {
+    margin-left: 5px;
+    font-size: 16px;
+  }
+  

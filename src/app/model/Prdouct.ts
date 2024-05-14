@@ -20,6 +20,7 @@ export interface Product {
     savedBy: any[]; // Assuming it's an array of any type
     shares: number;
     status: string;
+    
     stock: {
       inStock: string;
       outOfStock: string;

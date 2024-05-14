@@ -62,6 +62,8 @@ export class CheckoutService {
           cartItems: cartData.cartItems,
           totalQuantity: cartData.totalQuantity,
           totalPrice: cartData.totalPrice,
+          status:'pending',
+          
           createdAt: new Date()
         };
 

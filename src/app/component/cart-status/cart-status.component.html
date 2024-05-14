@@ -1,9 +1,18 @@
+
 <div class="cart-area">
   <a routerLink="/cart-details">
     <div class="total">
-      Total Price: {{ totalPrice | currency:'USD':'symbol':'1.2-2' }}
-      <span>Quantity: {{ totalQuantity }}</span>
+      <!-- Total Price: {{ totalPrice | currency:'USD':'symbol':'1.2-2' }} -->
+      <mat-icon matBadge="{{ totalQuantity }}" matBadgeColor="warn" matBadgeSize="small">
+      <img src="../assets/icon/cart.svg" alt="Home Icon">
+
+      </mat-icon>
+     
     </div>
     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
   </a>
 </div>
+  <!-- <mat-icon matBadge="{{ cartService.getTotalQuantity() }}" matBadgeColor="warn" matBadgeSize="small">
+      shopping_cart
+    </mat-icon> -->
+    
