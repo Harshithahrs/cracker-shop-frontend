@@ -17,10 +17,20 @@
         <div fxShow="true" fxHide.lt-md>
           <a mat-button routerLink="/Category">
             <!-- <mat-icon>notifications</mat-icon> -->
-            <select>
-              <option>All</option>
-              <option><app-product-category-menu></app-product-category-menu></option>
+ 
+            
+            <select class="form-control custom-select" (change)="onCategorySelected($event)">
+              <option value="" disabled selected>Select Category</option>
+              <option *ngFor="let cat of categoryArrays" [value]="cat.id">
+                {{ cat.data.category }}
+              </option>
             </select>
+            
+            
+            
+            
+            
+            
           </a>
           <!-- <img src="../assets/icon/home.svg" alt="Home Icon"> -->
           <!-- <app-product-category-menu></app-product-category-menu> -->

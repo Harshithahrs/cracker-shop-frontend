@@ -17,8 +17,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {  MatBadgeModule } from '@angular/material/badge';
 
+import { MatStepper } from '@angular/material/stepper';
 
 const materialModules = [
+  MatStepper ,
   MatCardModule,
   MatToolbarModule,
   MatButtonModule,
