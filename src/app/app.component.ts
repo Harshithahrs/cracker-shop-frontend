@@ -8,9 +8,11 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './app.componentupdated.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent  {
   title = 'cracker-frontend-app1';
-  constructor(private toastr:ToastrService, private cartService:CartService,private cartData:CartDataService){}
+  constructor(private toastr:ToastrService, private cartService:CartService,private cartData:CartDataService){
+    
+  }
   sidebarActive:boolean=false;
   toggleSidebar() {
     this.toastr.success('yest')
@@ -20,5 +22,7 @@ export class AppComponent {
 
   }
   isSidebarOpen = false;
-
+  ngOnInit() {
+   this.cartService.cartItemsCollection;
+  }
 }

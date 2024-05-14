@@ -4,12 +4,13 @@ import { catchError, map, switchMap } from 'rxjs/operators';
 import { Product } from '../model/Prdouct';
 import { Observable, forkJoin, from, of } from 'rxjs';
 import { CartItem } from '../model/CartItem';
+import { CustomSnackbarService } from './snackBar.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-  constructor(private firestore: AngularFirestore) { }
+  constructor(private firestore: AngularFirestore,private snackService:CustomSnackbarService) { }
 
   getAllProducts(): Observable<Product[]> {
     return this.firestore.collection<Product>('products').snapshotChanges().pipe(
