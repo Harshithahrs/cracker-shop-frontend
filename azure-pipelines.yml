@@ -23,16 +23,6 @@ steps:
     ng build --configuration=production --output-path=$(Build.ArtifactStagingDirectory)/dist/cracker-frontend-app1
   displayName: 'Install Angular CLI and Build'
 
-
-- task: ArchiveFiles@2
-  inputs:
-    rootFolderOrFile: 'dist/cracker-frontend-app1'  # Path to Angular build output directory
-    includeRootFolder: false
-    archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/angular-artifact.zip'
-    replaceExistingArchive: true
-  displayName: 'Archive Angular Build Artifacts'
-
 - task: PublishBuildArtifacts@1
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)/angular-artifact.zip'  # Path to the artifact to publish
