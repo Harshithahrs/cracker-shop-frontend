@@ -2,30 +2,43 @@
 # Build a Node.js project that uses Angular.
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
-
 trigger:
-- BTCS1_Login_Signup
+  branches:
+    include:
+      - BTCS1_Login_Signup
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'ubuntu-latest'
 
 steps:
 - task: NodeTool@0
   inputs:
     versionSpec: '18.x'
   displayName: 'Install Node.js'
+
 - script: |
     npm install -g @angular/cli
     npm install
-    ng build --configuration=production  # Build for production
+    ng build --configuration=production --output-path=$(Build.ArtifactStagingDirectory)/dist
   displayName: 'Install Angular CLI and Build'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)/dist/cracker-frontend-app1/browser'
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/angular-dist'
+    CleanTargetFolder: true
+  displayName: 'Copy Angular Build to Artifact Staging'
 
 - task: PublishBuildArtifacts@1
   inputs:
-    pathtoPublish: '$(Build.SourcesDirectory)/dist'  # Path to Angular build output directory
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)/angular-dist'
     artifactName: 'angular-dist'
     publishLocation: 'Container'
-    displayName: 'Publish Angular Build Artifacts'
+  displayName: 'Publish Angular Build Artifacts'
+
+- task: AzureRmWebAppDeployment@4
+  inputs:
     ConnectionType: 'AzureRM'
     azureSubscription: 'Azure for Students (6ebbb3bc-8b53-4226-bb05-d7851352144a)'
     appType: 'webApp'
@@ -33,5 +46,13 @@ steps:
     deployToSlotOrASE: true
     ResourceGroupName: 'cracker-admin-dashboard'
     SlotName: 'production'
-    VirtualApplication: 'cracker-frontend'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    packageForLinux: '$(Build.ArtifactStagingDirectory)/angular-dist'
+
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'Azure for Students (6ebbb3bc-8b53-4226-bb05-d7851352144a)'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      az webapp create --name mywebappservice --resource-group cracker-admin-dashboard --plan myappserviceplan --runtime "node|18-lts"
+  displayName: 'Create Azure Web App Service'
