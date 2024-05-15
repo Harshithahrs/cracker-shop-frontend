@@ -17,6 +17,8 @@ export class CartDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchCartItems();
+    this.totalPrice;
+    this.totalQuantity
   }
 
   fetchCartItems() {

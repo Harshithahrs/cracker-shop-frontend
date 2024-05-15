@@ -4,12 +4,13 @@ import { catchError, map, switchMap } from 'rxjs/operators';
 import { Product } from '../model/Prdouct';
 import { Observable, forkJoin, from, of } from 'rxjs';
 import { CartItem } from '../model/CartItem';
+import { CustomSnackbarService } from './snackBar.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-  constructor(private firestore: AngularFirestore) { }
+  constructor(private firestore: AngularFirestore,private snackService:CustomSnackbarService) { }
 
   getAllProducts(): Observable<Product[]> {
     return this.firestore.collection<Product>('products').snapshotChanges().pipe(
@@ -27,6 +28,7 @@ export class ProductService {
       map(actions => {
         return actions.map(action => {
           const data = action.payload.doc.data() as Product;
+          console.log(data)
           const id = action.payload.doc.id;
           return {  ...data,id };
         });
@@ -56,6 +58,8 @@ export class ProductService {
             permalink: data.permalink,
             postImgPath: data.postImgPath,
             productPrice: data.productPrice,
+            discountPrice: data.discountPrice,
+
             productStock: data.productStock,
             savedBy: data.savedBy,
             shares: data.shares,

@@ -3,6 +3,8 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { UserLogin } from '../model/UserAdmin';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
+import { CustomSnackbarService } from './snackBar.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,7 @@ export class AuthService {
   isLoggedInGuard:boolean=false;
   loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  constructor(private afAuth: AngularFireAuth, private router: Router) {
+  constructor(private afAuth: AngularFireAuth, private router: Router,private toastr:ToastrService,private snackService:CustomSnackbarService) {
     const storedUser = localStorage.getItem('currentUser');
     if (storedUser) {
       this.currentUser = JSON.parse(storedUser);
@@ -31,6 +33,7 @@ export class AuthService {
         this.loggedIn.next(false);
         localStorage.removeItem('currentUser'); // Clear from localStorage on logout
         this.isLoggedInGuard =false;
+        this.snackService.open("login failed","close",3000)
       }
     });
   }
@@ -40,12 +43,18 @@ export class AuthService {
       const credential = await this.afAuth.signInWithEmailAndPassword(admin.email, admin.password);
       if (credential.user) {
         this.isLoggedInGuard = true;
+        this.toastr.success('yest')
+        console.log(this.toastr.success("hi"))
+        this.snackService.open("login successfull",`welcome ${credential.user.email}`,3000)
+
         this.router.navigate(['/home']);
 
       }
     } catch (error) {
       this.isLoggedInGuard = false;
       console.error('Login error:', error);
+      this.snackService.handleError(error)
+
       throw error;
     }
   }
@@ -55,11 +64,14 @@ export class AuthService {
       const credential = await this.afAuth.createUserWithEmailAndPassword(admin.email, admin.password);
       if (credential.user) {
         this.isLoggedInGuard = true;
+        this.snackService.open("Signup successfull",`welcome ${credential.user.email}`,3000)
+
         this.router.navigate(['/home']);
       }
     } catch (error) {
       this.isLoggedInGuard = false;
       console.error('Signup error:', error);
+      this.snackService.handleError(error);
       throw error;
     }
   
@@ -89,7 +101,7 @@ getUserEmail():string{
   async logout() {
     try {
       await this.afAuth.signOut();
-      localStorage.removeItem('user');
+      localStorage.removeItem('currentUser');
       this.loggedIn.next(false);
       this.isLoggedInGuard=false;
       this.router.navigate(['/login']);

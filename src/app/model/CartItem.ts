@@ -8,6 +8,7 @@ export class CartItem {
 "unitPrice":number;
 "quantity":number;
 "visible":boolean;
+"status":Status
 constructor(product:Product){
     this.productId=product.id;
     this.name=product.title;
@@ -21,4 +22,7 @@ export interface CartItemWithMetadata {
     cartItems: CartItem[];
     totalQuantity: number;
     totalPrice: number;
+}
+export enum Status{
+    PENDING,RECIVED,COMPLETED
 }

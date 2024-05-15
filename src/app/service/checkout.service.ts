@@ -7,6 +7,7 @@ import { Observable, catchError, from, map, of, switchMap, take } from 'rxjs';
 import { ProductService } from './product.service';
 import { CheckoutData } from '../model/CheckoutData';
 import { Router } from '@angular/router';
+import { CustomSnackbarService } from './snackBar.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class CheckoutService {
   constructor(private authService:AuthService,
       private firestore: AngularFirestore,
       private cartDataService:CartDataService,private cartService:CartService,
-      private productService:ProductService,
+      private productService:ProductService,private snackService:CustomSnackbarService,
     private router:Router) {
          this.userId = this.authService.getUserCookies();
 
@@ -62,9 +63,12 @@ export class CheckoutService {
           cartItems: cartData.cartItems,
           totalQuantity: cartData.totalQuantity,
           totalPrice: cartData.totalPrice,
+          status:'pending',
+          
           createdAt: new Date()
         };
-
+        this.snackService.open(" successfull",`placed order`,3000)
+           
         // Save order details to Firestore
         return from(this.firestore.collection(`orders/${this.userId}/products`).add(orderData)).pipe(
           switchMap(() => this.productService.updateProductStock(cartData.cartItems))

@@ -7,11 +7,12 @@
       </div>
       <div class="product-details">
         <p><strong>Detail</strong>{{ product.content }}</p>
-        <p><strong>Price:</strong> ${{ product.productPrice }}</p>
+        <p><strong>Discount:</strong> ${{ product.productPrice }}</p>
+        <p><strong>Price:</strong><del> ${{ product.discountPrice}}</del></p>
         <p><strong>Stock:</strong> {{ product.productStock }}</p>
         <p><strong>Category:</strong> {{ product.category.category }}</p>
         <p><strong>Availability:</strong> {{ getProductAvailability(product) }}</p>
-        <button (click)="addToCart(product)" class="btn btn-primary btn-sm">Add To Cart</button>
+        <button (click)="addToCart(product)" [disabled]="instoke" class="btn btn-primary btn-sm">Add To Cart</button>
 
       </div>
     </div>

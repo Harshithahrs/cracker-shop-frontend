@@ -4,6 +4,7 @@ import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction } fr
 import { AuthService } from './auth.service';
 import { CartItem, CartItemWithMetadata } from '../model/CartItem';
 import { CartDataService } from './cartdata.service';
+import { CustomSnackbarService } from './snackBar.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +13,15 @@ export class CartService {
    cartItemsCollection!: AngularFirestoreCollection<CartItem>;
   private userId!: string;
   private initialized$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private totalPriceSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  private totalQuantitySubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+
+  totalPrice$ = this.totalPriceSubject.asObservable();
+  totalQuantity$ = this.totalQuantitySubject.asObservable();
 
 
-
-  constructor(private firestore: AngularFirestore, private authService: AuthService,private cartData:CartDataService) {
+  constructor(private firestore: AngularFirestore, private authService: AuthService,
+    private cartData:CartDataService,private snackService:CustomSnackbarService) {
     this.userId=authService.getUserCookies();
     // const store=localStorage.getItem('user');
     // this.authService.getUserId().subscribe(userId => {
@@ -41,8 +47,12 @@ console.log('hey id',this.userId)
     this.cartItemsCollection.doc(productId).get().subscribe(doc => {
       if (doc.exists) {
         const existingItem = doc.data() as CartItem;
+        this.snackService.open("Item quantity increaded by one to cart-Item","close",3000)
+
         this.cartItemsCollection.doc(productId).update({ quantity: existingItem.quantity + product.quantity });
       } else {
+        this.snackService.open("Item added to cart","close",3000)
+
         this.cartItemsCollection.doc(productId).set(cartItemData, { merge: true });
       }
     });
@@ -62,6 +72,8 @@ console.log('hey id',this.userId)
         console.log('this',cartItems);
         const totalQuantity = cartItems.reduce((acc, item) => acc + item.quantity, 0);
         const totalPrice = cartItems.reduce((acc, item) => acc + (item.quantity * item.unitPrice), 0);
+        this.totalQuantitySubject.next(totalQuantity);
+        this.totalPriceSubject.next(totalPrice);
         this.cartData.updateTotalPrice(totalPrice);
         this.cartData.updateTotalQuantity(totalQuantity)
         return {
@@ -82,6 +94,8 @@ console.log('hey id',this.userId)
     this.cartItemsCollection.doc(productId).get().subscribe(doc => {
       if (doc.exists) {
         const existingItem = doc.data() as CartItem;
+        this.snackService.open("Item Increase by one  to cart","close",3000)
+
         this.cartItemsCollection.doc(productId).update({ quantity: existingItem.quantity + 1 });
       }
     });
@@ -92,6 +106,8 @@ console.log('hey id',this.userId)
       if (doc.exists) {
         const existingItem = doc.data() as CartItem;
         if (existingItem.quantity > 1) {
+        this.snackService.open("Item quantity decreased in cart","close",3000)
+
           this.cartItemsCollection.doc(productId).update({ quantity: existingItem.quantity - 1 });
         } else {
           this.cartItemsCollection.doc(productId).delete();
@@ -101,6 +117,8 @@ console.log('hey id',this.userId)
   }
 
   clearCart(): void {
+    this.snackService.open("Item removed your cart is empty","close",3000)
+
     this.cartItemsCollection.get().subscribe(querySnapshot => {
       querySnapshot.forEach(doc => doc.ref.delete());
     });

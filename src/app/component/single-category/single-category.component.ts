@@ -32,4 +32,5 @@ export class SingleCategoryComponent {
       this.products$ = this.productService.getProductsByCategory(this.categoryId);
     });
   }
+  
 }

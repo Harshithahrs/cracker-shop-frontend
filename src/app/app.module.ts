@@ -26,6 +26,8 @@ import { CheckoutComponent } from './component/checkout/checkout.component';
 import { OrderSuccessComponent } from './component/order-success/order-success.component';
 import { OrderHistoryComponent } from './component/order-history/order-history.component';
 import { UserDashboardComponent } from './component/user-dashboard/user-dashboard.component';
+import { ToastrModule } from 'ngx-toastr';
+import { MaterialshareModule } from './materialshare/materialshare.module';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,7 @@ import { UserDashboardComponent } from './component/user-dashboard/user-dashboar
     
   ],
   imports: [
+    ToastrModule.forRoot() ,
     BrowserModule,
     AppRoutingModule,
     AngularFireAuthModule, // Import if using Authentication
@@ -56,7 +59,8 @@ import { UserDashboardComponent } from './component/user-dashboard/user-dashboar
     HttpClientModule,
     FormsModule,
     AngularFireStorageModule,
-    CommonModule
+    CommonModule,
+    MaterialshareModule
   ],
   providers: [CartService],
   bootstrap: [AppComponent]

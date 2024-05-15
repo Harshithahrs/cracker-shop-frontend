@@ -1,27 +1,67 @@
-<div id="container" [ngClass]="{sidebarActive:sidebarActive}">
 
-    <div id="sidebar">
-        <app-product-category-menu></app-product-category-menu>
+<div style="height: 100vh;">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      
+      <button mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
+          <img src="../assets/icon/home.svg" alt="Home Icon">
+      </button>
+      <button mat-icon-button (click)="toggleSidebar()" fxShow="false" fxHide.gt-sm>
+        <img src="../assets/icon/home.svg" alt="Home Icon">
+      </button>
+      <div  routerLink="products">
+      <span  routerLink="/">Home</span>
     </div>
-    <div id="contentContainer">
-        <div id="header">
+      <span class="example-spacer"></span>
+      <!-- <div fxShow="true" fxHide.lt-md (click)="sidenav.toggle()"> -->
+        <div fxShow="true" fxHide.lt-md>
+          <a mat-button routerLink="/Category">
+            <!-- <mat-icon>notifications</mat-icon> -->
+ 
+            
+            <select class="form-control custom-select" (change)="onCategorySelected($event)">
+              <option value="" disabled selected>Select Category</option>
+              <option *ngFor="let cat of categoryArrays" [value]="cat.id">
+                {{ cat.data.category }}
+              </option>
+            </select>
+            
+            
+            
+            
+            
+            
+          </a>
+          <!-- <img src="../assets/icon/home.svg" alt="Home Icon"> -->
+          <!-- <app-product-category-menu></app-product-category-menu> -->
+        
+      </div>
+      <app-cart-status></app-cart-status>
 
-            <div id="logo"><img [src]="sidebarActive ? '../assets/cross-icon.svg':'../assets/menu-icon.svg'"
-                    (click)="sidebarActive =! sidebarActive" />
-                Cracker-frontend</div>
-                <div id="menu">
-                    <!-- Right-aligned menu items -->
-                    <div id="rightMenu">
-                      <a [routerLink]="['/userDashboard']">login</a>
-                      
-                    <div id="a">
-                      <app-cart-status></app-cart-status>
-                      </div>
-                    </div>
-                  </div>
-        </div>
-        <div id="mar">
-        <router-outlet></router-outlet>
-        </div>
-    </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <mat-sidenav-container fxFlexFill fxShow="true">
+    <mat-sidenav #sidenav mode="side">
+      <mat-nav-list>
+         <a (click)="sidenav.toggle()" mat-list-item>
+          <img src="../assets/icon/cross-icon.svg" alt="Home Icon">
+
+          Close
+        </a>
+        <h2>Category</h2>
+        <app-product-category-menu (click)="sidenav.toggle()"></app-product-category-menu>
+        
+        <a (click)="sidenav.toggle()" mat-list-item>
+          <img src="../assets/icon/cross-icon.svg" alt="Home Icon">
+
+          Close
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content fxFlexFill>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </div>
