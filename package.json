@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "gh-build": "ng build --configurations github --base-href /cracker-shop-frontend/",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"

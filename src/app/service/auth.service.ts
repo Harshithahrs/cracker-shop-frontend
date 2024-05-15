@@ -47,7 +47,7 @@ export class AuthService {
         console.log(this.toastr.success("hi"))
         this.snackService.open("login successfull",`welcome ${credential.user.email}`,3000)
 
-        this.router.navigate(['/home']);
+        this.router.navigate(['/userDashboard']);
 
       }
     } catch (error) {
@@ -66,7 +66,7 @@ export class AuthService {
         this.isLoggedInGuard = true;
         this.snackService.open("Signup successfull",`welcome ${credential.user.email}`,3000)
 
-        this.router.navigate(['/home']);
+        this.router.navigate(['/userDashboard']);
       }
     } catch (error) {
       this.isLoggedInGuard = false;

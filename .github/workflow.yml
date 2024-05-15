@@ -1,0 +1,26 @@
+name : Github Pages Deploy
+on:
+  push:
+    branches:
+    -"BTCS1_Login_Signup"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18]
+    
+    steps:
+     -name: Checkout
+      uses: actions/checkout@v1
+
+    -name: Install and build
+     working-directory: ./cracker-frontend-app1
+     run: npm install && npm run gh-build && cp dist/cracker-frontend-app1/browser/index.html  dist/cracker-frontend-app1/browser/404.html 
+
+    -name: Deploy
+     uses: JamesIves/github-pages-deploy-action@4.1.1
+     with:
+       branch: gh-pages
+       folder: cracker-frontend-app1/dist/cracker-frontend-app1/browser
