@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { CustomSnackbarService } from './snackBar.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class CartDataService {
     // totalPrice$ = this.totalPriceSubject.asObservable();
     // totalQuantity$ = this.totalQuantitySubject.asObservable();
   
-  constructor() {}
+  constructor(private snackService:CustomSnackbarService) {}
   private totalPriceSource = new BehaviorSubject<number>(0);
   private totalQuantitySource = new BehaviorSubject<number>(0);
 
@@ -25,6 +26,7 @@ export class CartDataService {
   updateTotalQuantity(quantity: number): void {
     this.totalQuantitySource.next(quantity);
   }
+  
 //   setCartData(price: number, quantity: number) {
 //     this.totalPriceSubject.next(price);
 //     this.totalQuantitySubject.next(quantity);

@@ -37,8 +37,16 @@ export class ProductDescriptionComponent {
       })
     );
   }
+  instoke:boolean=false;
   getProductAvailability(product: Product): string {
-    return product.productStock > 0 ? 'In Stock' : 'Out of Stock';
+    
+    if(product.productStock <= 0){ 
+      this.instoke=true;
+    return 'Out of Stock';
+      
+    }
+    return 'In Stock' 
+
   }
   addToCart(theProduct:Product){
     console.log(`Adding to cart: ${theProduct.title},${theProduct.productPrice}`);

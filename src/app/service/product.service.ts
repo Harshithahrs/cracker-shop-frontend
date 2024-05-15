@@ -28,6 +28,7 @@ export class ProductService {
       map(actions => {
         return actions.map(action => {
           const data = action.payload.doc.data() as Product;
+          console.log(data)
           const id = action.payload.doc.id;
           return {  ...data,id };
         });
@@ -57,6 +58,8 @@ export class ProductService {
             permalink: data.permalink,
             postImgPath: data.postImgPath,
             productPrice: data.productPrice,
+            discountPrice: data.discountPrice,
+
             productStock: data.productStock,
             savedBy: data.savedBy,
             shares: data.shares,
