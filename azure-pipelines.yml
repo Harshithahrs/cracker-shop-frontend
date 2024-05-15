@@ -23,11 +23,12 @@ steps:
     npm run build
   displayName: 'npm install and build'
 
+
 - task: PublishBuildArtifacts@1
   inputs:
     pathtoPublish: '$(Build.SourcesDirectory)/dist'
-    artifactName: 'angular-app1'
-    displayName: 'Publish Artifact: angular-app1'
+    artifactName: 'angular-app'
+    displayName: 'Publish Artifact: angular-app'
     task: AzureRmWebAppDeployment@4
     ConnectionType: 'AzureRM'
     azureSubscription: 'Azure for Students (6ebbb3bc-8b53-4226-bb05-d7851352144a)'
