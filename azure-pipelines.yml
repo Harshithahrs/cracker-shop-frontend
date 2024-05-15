@@ -1,4 +1,5 @@
 # Node.js with Angular
+
 # Build a Node.js project that uses Angular.
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
@@ -7,31 +8,29 @@ trigger:
 - BTCS1_Login_Signup
 
 pool:
-  vmImage: ubuntu-latest
+   vmImage: 'windows-latest'
 
 steps:
 - task: NodeTool@0
   inputs:
     versionSpec: '18.x'
   displayName: 'Install Node.js'
+
+
 - script: |
-    npm install -g @angular/cli
+    npm install -g @angular/cli@17.0.10
     npm install
-    ng build --configuration=production  # Build for production
-  displayName: 'Install Angular CLI and Build'
+    npm run build
+  displayName: 'npm install and build'
 
 - task: PublishBuildArtifacts@1
   inputs:
-    pathtoPublish: '$(Build.SourcesDirectory)/dist'  # Path to Angular build output directory
-    artifactName: 'angular-dist'
-    publishLocation: 'Container'
-    displayName: 'Publish Angular Build Artifacts'
+    pathtoPublish: '$(Build.SourcesDirectory)/dist'
+    artifactName: 'angular-app1'
+    displayName: 'Publish Artifact: angular-app1'
+    task: AzureRmWebAppDeployment@4
     ConnectionType: 'AzureRM'
     azureSubscription: 'Azure for Students (6ebbb3bc-8b53-4226-bb05-d7851352144a)'
     appType: 'webApp'
     WebAppName: 'DEV-D'
-    deployToSlotOrASE: true
-    ResourceGroupName: 'cracker-admin-dashboard'
-    SlotName: 'production'
-    VirtualApplication: 'cracker-frontend'
     packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
