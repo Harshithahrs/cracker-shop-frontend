@@ -20,24 +20,25 @@ steps:
 - script: |
     npm install -g @angular/cli
     npm install
-    ng build --configuration=production --output-path=$(Build.ArtifactStagingDirectory)/dist
+    ng build --configuration=production --output-path=$(Build.ArtifactStagingDirectory)/dist/cracker-frontend-app1
   displayName: 'Install Angular CLI and Build'
 
-- task: CopyFiles@2
+
+- task: ArchiveFiles@2
   inputs:
-    SourceFolder: '$(Build.SourcesDirectory)/dist/cracker-frontend-app1'
-    Contents: '**'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)/angular-dist'
-    CleanTargetFolder: true
-  displayName: 'Copy Angular Build to Artifact Staging'
+    rootFolderOrFile: 'dist/cracker-frontend-app1'  # Path to Angular build output directory
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/angular-artifact.zip'
+    replaceExistingArchive: true
+  displayName: 'Archive Angular Build Artifacts'
 
 - task: PublishBuildArtifacts@1
   inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)/angular-dist'
-    artifactName: 'angular-dist'
-    publishLocation: 'Container'
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)/angular-artifact.zip'  # Path to the artifact to publish
+    artifactName: 'angular-artifact'  # Name of the artifact to publish
+    publishLocation: 'Container'  # Publish to Azure Pipelines artifact repository
   displayName: 'Publish Angular Build Artifacts'
-
 - task: AzureRmWebAppDeployment@4
   inputs:
     ConnectionType: 'AzureRM'
