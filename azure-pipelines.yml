@@ -1,15 +1,10 @@
-# Node.js with Angular
-# Build a Node.js project that uses Angular.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 trigger:
   branches:
     include:
       - BTCS1_Login_Signup
 
 pool:
-   vmImage: 'windows-latest'  # Use a Windows agent pool
-
+  vmImage: 'windows-latest'
 
 steps:
 - task: NodeTool@0
@@ -20,24 +15,34 @@ steps:
 - script: |
     npm install -g @angular/cli
     npm install
-    ng build
-  displayName: 'build angular app'
+    npm run build
+  displayName: 'Build Angular App'
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)/dist/cracker-frontend-app1'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
+  displayName: 'Archive Files'
 
 - task: PublishBuildArtifacts@1
   inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)/dist'  # Path to the artifact to publish
-    artifactName: 'cracker-frontend-app1'  # Name of the artifact to publish
-  displayName: 'Publish Angular Build Artifacts'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+  displayName: 'Publish Artifact: drop'
+
 - task: AzureRmWebAppDeployment@4
   inputs:
-    ConnectionType: 'AzureRM'
     azureSubscription: 'Azure for Students (6ebbb3bc-8b53-4226-bb05-d7851352144a)'
     appType: 'webApp'
     WebAppName: 'DEV-D'
     deployToSlotOrASE: true
     ResourceGroupName: 'cracker-admin-dashboard'
     SlotName: 'production'
-    packageForLinux: '$(Build.ArtifactStagingDirectory)/dist'
+    packageForLinux: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
 
 - task: AzureCLI@2
   inputs:
