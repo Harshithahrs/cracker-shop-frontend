@@ -18,37 +18,9 @@ steps:
     npm run build
   displayName: 'Build Angular App'
 
-- task: ArchiveFiles@2
-  inputs:
-    rootFolderOrFile: '$(System.DefaultWorkingDirectory)/dist/cracker-frontend-app1'
-    includeRootFolder: false
-    archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-    replaceExistingArchive: true
-  displayName: 'Archive Files'
-
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
+    PathtoPublish: '$(Build.SourcesDirectory)/dist'
+    ArtifactName: 'cracker-frontend-app1'
   displayName: 'Publish Artifact: drop'
 
-- task: AzureRmWebAppDeployment@4
-  inputs:
-    azureSubscription: 'Azure for Students (6ebbb3bc-8b53-4226-bb05-d7851352144a)'
-    appType: 'webApp'
-    WebAppName: 'DEV-D'
-    deployToSlotOrASE: true
-    ResourceGroupName: 'cracker-admin-dashboard'
-    SlotName: 'production'
-    packageForLinux: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-
-- task: AzureCLI@2
-  inputs:
-    azureSubscription: 'Azure for Students (6ebbb3bc-8b53-4226-bb05-d7851352144a)'
-    scriptType: 'bash'
-    scriptLocation: 'inlineScript'
-    inlineScript: |
-      az webapp create --name mywebappservice --resource-group cracker-admin-dashboard --plan myappserviceplan --runtime "node|18-lts"
-  displayName: 'Create Azure Web App Service'
