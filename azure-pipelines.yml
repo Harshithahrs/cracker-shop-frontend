@@ -8,7 +8,8 @@ trigger:
       - BTCS1_Login_Signup
 
 pool:
-  vmImage: 'ubuntu-latest'
+   vmImage: 'windows-latest'  # Use a Windows agent pool
+
 
 steps:
 - task: NodeTool@0
@@ -24,7 +25,7 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(Build.SourcesDirectory)/dist/cracker-frontend-app1/browser'
+    SourceFolder: '$(Build.SourcesDirectory)/dist/cracker-frontend-app1'
     Contents: '**'
     TargetFolder: '$(Build.ArtifactStagingDirectory)/angular-dist'
     CleanTargetFolder: true
