@@ -20,14 +20,13 @@ steps:
 - script: |
     npm install -g @angular/cli
     npm install
-    ng build --configuration=production --output-path=$(Build.ArtifactStagingDirectory)/dist/cracker-frontend-app1
-  displayName: 'Install Angular CLI and Build'
+    ng build
+  displayName: 'build angular app'
 
 - task: PublishBuildArtifacts@1
   inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)/angular-artifact.zip'  # Path to the artifact to publish
-    artifactName: 'angular-artifact'  # Name of the artifact to publish
-    publishLocation: 'Container'  # Publish to Azure Pipelines artifact repository
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)/dist'  # Path to the artifact to publish
+    artifactName: 'cracker-frontend-app1'  # Name of the artifact to publish
   displayName: 'Publish Angular Build Artifacts'
 - task: AzureRmWebAppDeployment@4
   inputs:
@@ -38,7 +37,7 @@ steps:
     deployToSlotOrASE: true
     ResourceGroupName: 'cracker-admin-dashboard'
     SlotName: 'production'
-    packageForLinux: '$(Build.ArtifactStagingDirectory)/angular-dist'
+    packageForLinux: '$(Build.ArtifactStagingDirectory)/dist'
 
 - task: AzureCLI@2
   inputs:
