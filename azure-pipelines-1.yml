@@ -38,8 +38,3 @@ steps:
     packageForLinux: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
   displayName: 'Deploy to Azure Web App'
 
-- task: PublishBuildArtifact@2
-  displayName: 'Publish artifact'
-  inputs:
-    artifactName: 'drop'
-    path: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
