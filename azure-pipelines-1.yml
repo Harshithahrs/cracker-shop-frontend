@@ -20,8 +20,8 @@ steps:
   displayName: 'npm install and build'
 - task: PublishBuildArtifacts@1
   inputs:
-    pathtoPublish: '$(Build.SourcesDirectory)/dist'
-    artifactName: 'my-angular-apps'  # Artifact name in the repository
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    artifactName: 'drop'
   displayName: 'Publish Artifact: angular-app'
 - task: ArchiveFiles@2
   displayName: 'Archive files'
@@ -42,3 +42,4 @@ steps:
     packageForLinux: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
   displayName: 'Deploy to Azure Web App'
 
+- task: PublishBuildArtifacts@1
