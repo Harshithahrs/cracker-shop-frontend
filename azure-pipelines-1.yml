@@ -20,7 +20,7 @@ steps:
   displayName: 'npm install and build'
 - task: PublishBuildArtifacts@1
   inputs:
-    pathToPublish: '$(Build.ArtifactStagingDirectory)'  # Location of build artifact
+    pathtoPublish: '$(Build.SourcesDirectory)/dist'
     artifactName: 'my-angular-apps'  # Artifact name in the repository
   displayName: 'Publish Artifact: angular-app'
 - task: ArchiveFiles@2
