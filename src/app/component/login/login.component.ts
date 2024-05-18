@@ -12,6 +12,7 @@ import { Observable } from 'rxjs/internal/Observable';
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   isUserLoggedIn!: Observable<boolean>;
+centre: any;
   constructor(private fb:FormBuilder,private auth:AuthService){
     this.isUserLoggedIn = this.auth.isLoggedIn();
   }

@@ -1,32 +1,29 @@
-<p>signup works!</p>
 <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="username">Useremail</label>
-      <input type="text" id="username" formControlName="username" class="form-control">
-      <div *ngIf="f['username'].invalid && (f['username'].dirty || f['username'].touched)">
-        <div *ngIf="f['username'].hasError('required')">Useremail is required.</div>
-        <div *ngIf="f['username'].hasError('minlength')">Useremail must be at least 4 characters long.</div>
-      </div>
+  <div class="form-group">
+    <label for="username">Email</label>
+    <input type="text" id="username" formControlName="username">
+    <div *ngIf="f['username'].invalid && (f['username'].dirty || f['username'].touched)">
+      <div *ngIf="f['username'].hasError('required')">Email required.</div>
+      <div *ngIf="f['username'].hasError('minlength')">Useremail must be at least 4 characters long.</div>
     </div>
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input type="password" id="password" formControlName="password" class="form-control">
-      <div *ngIf="f['password'].invalid && (f['password'].dirty || f['password'].touched)">
-        <div *ngIf="f['password'].hasError('required')">Password is required.</div>
-        <div *ngIf="f['password'].hasError('minlength')">Password must be at least 6 characters long.</div>
-      </div>
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" id="password" formControlName="password">
+    <div *ngIf="f['password'].invalid && (f['password'].dirty || f['password'].touched)">
+      <div *ngIf="f['password'].hasError('required')">Password is required.</div>
+      <div *ngIf="f['password'].hasError('minlength')">Password must be at least 6 characters long.</div>
     </div>
-    <div class="form-group">
-      <label for="confirmPassword">Confirm Password</label>
-      <input type="password" id="confirmPassword" formControlName="confirmPassword" class="form-control">
-      <div *ngIf="f['confirmPassword'].invalid && (f['confirmPassword'].dirty || f['confirmPassword'].touched)">
-        <div *ngIf="f['confirmPassword'].hasError('required')">Please confirm your password.</div>
-        <div *ngIf="f['confirmPassword'].hasError('mismatch')">Passwords do not match.</div>
-      </div>
+  </div>
+  <div class="form-group">
+    <label for="confirmPassword">Confirm Password</label>
+    <input type="password" id="confirmPassword" formControlName="confirmPassword">
+    <div *ngIf="f['confirmPassword'].invalid && (f['confirmPassword'].dirty || f['confirmPassword'].touched)">
+      <div *ngIf="f['confirmPassword'].hasError('required')">Please confirm your password.</div>
+      <div *ngIf="f['confirmPassword'].hasError('mismatch')">Passwords do not match.</div>
     </div>
-    <button type="submit" class="btn btn-primary" [disabled]="signupForm.invalid">Sign Up</button>
-    <h1>Account ! Login</h1>
-    <button type="submit" class="btn btn-primary" routerLink="/login">Login</button>
-
-  </form>
-  
+  </div>
+  <button type="submit" class="btn-signup" [disabled]="signupForm.invalid">Sign Up</button>
+  <h6 class="login-header">Account Already Exist! Login</h6>
+  <button type="submit" class="btn-login" routerLink="/login">Login</button>
+</form>
